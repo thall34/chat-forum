@@ -5,8 +5,11 @@ import Link from 'next/link'
 import { login } from '@/app/authorization/auth';
 import { UserLight } from '@/types/types';
 import getAuthenticatedUser from '@/lib/server-auth';
+import { useRouter } from 'next/navigation';
+import GoogleLoginButton from './_components/GoogleLoginButton';
 
 export default function Home() {
+  const router = useRouter();
   // state that manages the currently logged in user
   const [user, setUser] = useState<UserLight | null>(null);
   // state that changes page layout if there are any errors with submitting the login form
@@ -36,6 +39,11 @@ export default function Home() {
       };
     };
   };
+
+  function handleNavigate() {
+    router.push('/chat');
+    router.refresh();
+  }
 
   useEffect(() => {
     async function initializePage() {
@@ -91,6 +99,7 @@ export default function Home() {
           <section className="flex flex-col items-center gap-[2em] w-full">
             <h1 className="p-[1em] text-[1.5em]">Welcome to Harmony</h1>
             <p>Welcome back {user.email}</p>
+            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white" onClick={() => handleNavigate()}>To User Dashboard</button>
           </section>
         </main>
       </div>
@@ -104,6 +113,7 @@ export default function Home() {
           <section className="flex flex-col items-center gap-[2em] w-full">
             <h1 className="p-[1em] text-[1.5em]">Welcome to Harmony</h1>
             <p>{user.email} has successfully logged in</p>
+            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white" onClick={() => handleNavigate()}>To User Dashboard</button>
           </section>
         </main>
       </div>
@@ -123,6 +133,7 @@ export default function Home() {
             <input type="password" name="password" id="password" required className="border border-gray-400 p-[0.3em] rounded outline-none transition-all duration-200 ease-in-out hover:border-gray-600 focus:border-gray-800 focus:shadow-md" />
             <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white">Submit</button>
           </form>
+          <GoogleLoginButton />
           <Link href='/user/new' className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white">Register New User</Link>
         </section>
       </main>
