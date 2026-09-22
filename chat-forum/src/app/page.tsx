@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link'
-import { login } from '@/app/authorization/auth';
+import { signIn } from 'next-auth/react';
 import { UserLight } from '@/types/types';
-import getAuthenticatedUser from '@/lib/server-auth';
+import getAuthenticatedUser from '@/lib/getAuthenticatedUser';
 import { useRouter } from 'next/navigation';
 import GoogleLoginButton from './_components/GoogleLoginButton';
+import GitHubLoginButton from './_components/GitHubLoginButton';
 
 export default function Home() {
   const router = useRouter();
@@ -16,8 +17,6 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   // state that changes page layout to hide load times for page initialization and form submission
   const [loading, setLoading] = useState<boolean>(true);
-  // state that sets welcome message if user was previously logged in and session cookie still exists
-  const [previousAuth, setPreviousAuth] = useState<boolean>(false);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     // prevents page reloading
@@ -27,10 +26,24 @@ export default function Home() {
       setLoading(true);
       // gets login credentials from form and sends it to login utility function
       const formData = new FormData(e.currentTarget);
-      const user = await login(formData);
-      setUser(user);
-      setPreviousAuth(false);
-      setLoading(false);
+      const email = formData.get('email') as string;
+      const password = formData.get('password') as string;
+
+      const result = await signIn('credentials', {
+        email: email,
+        password: password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError('Invalid email or password');
+        setLoading(false);
+      } else {
+        const authenticatedUser = await getAuthenticatedUser() as UserLight;
+        setUser(authenticatedUser);
+        setLoading(false);
+      };
+
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -51,11 +64,10 @@ export default function Home() {
         const user = await getAuthenticatedUser() as UserLight;
         if (!user) {
           setUser(null);
-          setPreviousAuth(false);
+        } else {
+          setUser(user);
         };
 
-        setUser(user);
-        setPreviousAuth(true);
         setLoading(false);
       } catch (err) {
         if (err instanceof Error) {
@@ -92,27 +104,13 @@ export default function Home() {
     );
   };
 
-  if (user && previousAuth) {
+  if (user) {
     return (
       <div>
         <main className="w-full">
           <section className="flex flex-col items-center gap-[2em] w-full">
             <h1 className="p-[1em] text-[1.5em]">Welcome to Harmony</h1>
             <p>Welcome back {user.email}</p>
-            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white" onClick={() => handleNavigate()}>To User Dashboard</button>
-          </section>
-        </main>
-      </div>
-    );
-  };
-
-  if (user && !previousAuth) {
-    return (
-      <div>
-        <main className="w-full">
-          <section className="flex flex-col items-center gap-[2em] w-full">
-            <h1 className="p-[1em] text-[1.5em]">Welcome to Harmony</h1>
-            <p>{user.email} has successfully logged in</p>
             <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white" onClick={() => handleNavigate()}>To User Dashboard</button>
           </section>
         </main>
@@ -134,6 +132,7 @@ export default function Home() {
             <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white">Submit</button>
           </form>
           <GoogleLoginButton />
+          <GitHubLoginButton />
           <Link href='/user/new' className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white">Register New User</Link>
         </section>
       </main>
