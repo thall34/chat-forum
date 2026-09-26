@@ -1,22 +1,20 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link'
-import { signIn } from 'next-auth/react';
-import { UserLight } from '@/types/types';
-import getAuthenticatedUser from '@/lib/getAuthenticatedUser';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import GoogleLoginButton from './_components/GoogleLoginButton';
 import GitHubLoginButton from './_components/GitHubLoginButton';
 
-export default function Home() {
+export default function Home(): React.JSX.Element {
   const router = useRouter();
-  // state that manages the currently logged in user
-  const [user, setUser] = useState<UserLight | null>(null);
+  
+  const { data: session, status } = useSession();
   // state that changes page layout if there are any errors with submitting the login form
   const [error, setError] = useState<string | null>(null);
   // state that changes page layout to hide load times for page initialization and form submission
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     // prevents page reloading
@@ -37,11 +35,7 @@ export default function Home() {
 
       if (result?.error) {
         setError('Invalid email or password');
-        setLoading(false);
-      } else {
-        const authenticatedUser = await getAuthenticatedUser() as UserLight;
-        setUser(authenticatedUser);
-        setLoading(false);
+        return;
       };
 
     } catch (err) {
@@ -50,6 +44,8 @@ export default function Home() {
       } else {
         setError('An unexpected error occurred');
       };
+    } finally {
+      setLoading(false);
     };
   };
 
@@ -58,30 +54,7 @@ export default function Home() {
     router.refresh();
   }
 
-  useEffect(() => {
-    async function initializePage() {
-      try {
-        const user = await getAuthenticatedUser() as UserLight;
-        if (!user) {
-          setUser(null);
-        } else {
-          setUser(user);
-        };
-
-        setLoading(false);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        } else {
-          setError('An unexpected error occurred');
-        };
-      };
-    };
-
-    initializePage();
-  }, []);
-
-  if (loading) {
+  if (status === 'loading' || loading) {
     return (
       <div>
         <main className="w-full">
@@ -97,21 +70,25 @@ export default function Home() {
   if (error) {
     return (
       <div>
-        <h1>Error</h1>
-        <p>{error}</p>
-        <button onClick={() => setError(null)}>Back to Login</button>
+          <main className="w-full">
+            <section className="flex flex-col items-center gap-[2em] w-full p-[2em]">
+            <h1 className="text-[2em] font-bold">Error</h1>
+            <p className="text-[1.5em]">{error}</p>
+            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110" onClick={() => setError(null)}>Back to Login</button>
+          </section>
+        </main>
       </div>
     );
   };
 
-  if (user) {
+  if (session) {
     return (
       <div>
         <main className="w-full">
           <section className="flex flex-col items-center gap-[2em] w-full">
             <h1 className="p-[1em] text-[1.5em]">Welcome to Harmony</h1>
-            <p>Welcome back {user.email}</p>
-            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white" onClick={() => handleNavigate()}>To User Dashboard</button>
+            <p>Welcome back {session.user.email}</p>
+            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-105" onClick={() => handleNavigate()}>To User Dashboard</button>
           </section>
         </main>
       </div>
@@ -129,11 +106,11 @@ export default function Home() {
             <input type="text" name="email" id="email" required className="border border-gray-400 p-[0.3em] rounded outline-none transition-all duration-200 ease-in-out hover:border-gray-600 focus:border-gray-800 focus:shadow-md" />
             <label htmlFor="password">Password: </label>
             <input type="password" name="password" id="password" required className="border border-gray-400 p-[0.3em] rounded outline-none transition-all duration-200 ease-in-out hover:border-gray-600 focus:border-gray-800 focus:shadow-md" />
-            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white">Submit</button>
+            <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">Submit</button>
           </form>
           <GoogleLoginButton />
           <GitHubLoginButton />
-          <Link href='/user/new' className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white">Register New User</Link>
+          <Link href='/user/new' className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">Register New User</Link>
         </section>
       </main>
     </div>

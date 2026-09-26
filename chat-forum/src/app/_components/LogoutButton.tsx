@@ -1,15 +1,11 @@
-import { signOut } from '@/lib/auth';
+import { signOut } from "next-auth/react";
 
 // Creates logout button component for admin side of app
-function LogoutButton() {
+function LogoutButton(): React.JSX.Element {
     return (
-        <form action={async () => {
-            'use server';
-            await signOut({ redirectTo: '/' });
-        }}
-        >
-            <button type='submit' className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white">Logout</button>
-        </form>
+        <button 
+        className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110" 
+        onClick={() => signOut({ callbackUrl: '/' })}>Logout</button>
     );
 };
 

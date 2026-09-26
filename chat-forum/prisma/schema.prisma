@@ -20,17 +20,45 @@ enum Role {
 
 model User {
   id  String  @id @default(uuid())
+  name  String?
+  email String  @unique
+  emailVerified DateTime?
+  image String?
+
   username  String?
-  email String
-  passwordHash  String
+  passwordHash  String?
   birthdate DateTime?
   role  Role  @default(USER)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @default(now()) @updatedAt
 
+  accounts  Account[]
+
   chatMessages  ChatMessage[]
   receivedFriendMessages  FriendMessage[] @relation("ReceivedMessages")
   sentFriendMessages  FriendMessage[] @relation("SentMessages")
+}
+
+model Account {
+  id                String @id @default(uuid())
+
+  userId            String
+  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type              String
+  provider          String
+  providerAccountId String
+
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Chat {

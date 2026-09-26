@@ -1,10 +1,5 @@
-export interface UserLight {
+export interface Chat {
     id: string,
-    email: string,
-};
-
-export interface UserFull {
-    id: string,
-    email: string,
-    passwordHash: string,
+    name: string,
+    description: string,
 };
