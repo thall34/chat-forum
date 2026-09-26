@@ -10,7 +10,7 @@
  */
 export type * from './models/User'
 export type * from './models/Account'
-export type * from './models/Chat'
+export type * from './models/Topic'
 export type * from './models/ChatMessage'
 export type * from './models/FriendMessage'
 export type * from './commonInputTypes'

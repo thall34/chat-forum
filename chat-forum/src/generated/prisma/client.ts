@@ -52,10 +52,10 @@ export type User = Prisma.UserModel
  */
 export type Account = Prisma.AccountModel
 /**
- * Model Chat
+ * Model Topic
  * 
  */
-export type Chat = Prisma.ChatModel
+export type Topic = Prisma.TopicModel
 /**
  * Model ChatMessage
  * 
