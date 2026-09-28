@@ -1,12 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 import { useRouter, useParams } from 'next/navigation';
+import Link from 'next/link';
 import { getChat, editChat } from '../../actions';
 import handleChange from '@/app/utils/handleChange';
 import { Chat } from '@/types/types';
 
 export default function EditTopicForm() {
+  const { data: session, status } = useSession();
   const params = useParams<{ uuid: string }>();
   const uuid = params.uuid;
   const [chat, setChat] = useState<Chat>({
@@ -75,6 +78,7 @@ export default function EditTopicForm() {
     );
   };
 
+  if (session?.user.role === 'ADMIN')
   return (
     <div>
       <main className="w-full pt-[3em]">
@@ -92,4 +96,15 @@ export default function EditTopicForm() {
       </main>
     </div>
   )
+
+  return (
+      <div>
+        <main className="w-full">
+          <section className="flex flex-col items-center gap-[2em] w-full p-[2em]">
+            <h1 className="text-[2em] font-bold">Not Authorized for this Page</h1>
+            <Link href='/chat' className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">Back to Chats</Link>
+          </section>
+        </main>
+      </div>
+    );
 };

@@ -102,7 +102,7 @@ export default function UserDashboard(): React.JSX.Element {
                                             <p className="text-gray-500 italic">{chat.description}</p>
                                         </div>
                                         <div className="flex gap-[1em]">
-                                            <Link href='' className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">View Messages</Link>
+                                            <Link href={`/chat/${chat.id}`} className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">View Messages</Link>
                                             <Link href={`/chat/edit/${chat.id}`} className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">Edit</Link>
                                             <button className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110" onClick={() => handleDelete(chat.id)}>Delete</button>
                                         </div>
@@ -133,7 +133,7 @@ export default function UserDashboard(): React.JSX.Element {
                                             <h2 className="text-[1.5em]">{chat.name}</h2>
                                             <p className="text-gray-500 italic">{chat.description}</p>
                                         </div>
-                                        <Link href='' className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">View Messages</Link>
+                                        <Link href={`/chat/${chat.id}`} className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">View Messages</Link>
                                     </div>
                                 ))}
                             </aside>
