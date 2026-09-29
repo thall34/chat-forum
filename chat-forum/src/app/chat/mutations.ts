@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
+import { Chat } from "@/types/types";
 
-export async function createChatRow(name: string, description: string) {
+export async function createChatRow(name: string, description: string): Promise<Chat> {
     const chat = await prisma.topic.create({
         data: {
             name,
@@ -11,7 +12,7 @@ export async function createChatRow(name: string, description: string) {
     return chat;
 };
 
-export async function editChatRow(id: string, name: string, description: string) {
+export async function editChatRow(id: string, name: string, description: string): Promise<Chat> {
     const chat = await prisma.topic.update({
         where: {
             id,
@@ -25,7 +26,7 @@ export async function editChatRow(id: string, name: string, description: string)
     return chat;
 };
 
-export async function deleteChatRow(id: string) {
+export async function deleteChatRow(id: string): Promise<void> {
     await prisma.topic.delete({
         where: {
             id,

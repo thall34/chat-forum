@@ -16,6 +16,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`h-full w-full antialiased`}
     >
       <body className="min-h-full w-full flex flex-col">
+        {/* need session provider for useSession in children */}
           <SessionProvider>
             <Header />
             {children}

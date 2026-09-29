@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
+import { Chat } from '@/types/types';
 
-export async function getAllChats() {
+export async function getAllChats(): Promise<Chat[]> {
     const chats = await prisma.topic.findMany({
         select: {
             id: true,
@@ -12,7 +13,7 @@ export async function getAllChats() {
     return chats;
 };
 
-export async function getSingleChat(id: string) {
+export async function getSingleChat(id: string): Promise<Chat | null> {
     const chat = await prisma.topic.findUnique({
         where: {
             id,

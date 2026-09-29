@@ -7,26 +7,33 @@ import Link from "next/link";
 import { getChats, deleteChat } from "./actions";
 import { Chat } from '@/types/types';
 
+// User dashboard page once user is successfully signed in
 export default function UserDashboard(): React.JSX.Element {
+    // Gets active session using Next Auth
     const { data: session, status } = useSession();
-    // state that contains all the chat names and descriptions for displaying on the chat main page
+    // State that contains all the chat names and descriptions for displaying on the chat main page
     const [chats, setChats] = useState<Chat[]>([]);
-    // state that changes page layout if there are any errors with submitting the login form
+    // State that changes page layout if there are any errors with submitting the login form
     const [error, setError] = useState<string | null>(null);
+    // State that changes page layout while loading all chats
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        // Page initialization function that gets all chats in database on component mount
         async function initializePage() {
             try {
+                // Sets page to loading state
                 setLoading(true);
+                // Queries database for all chats and sets state
                 const allChats = await getChats() as Chat[];
                 setChats(allChats);
-            } catch(err) {
+            } catch (err) {
                 if (err instanceof Error) {
                     setError(err.message);
                 } else {
                     setError('An unexpected error occurred');
                 };
+            // sets loading to false once chats are found or if an error occurs
             } finally {
                 setLoading(false)
             };
@@ -35,13 +42,14 @@ export default function UserDashboard(): React.JSX.Element {
         initializePage();
     }, []);
 
+    // Handle delete function that removes chat topic from database and from chats state
     async function handleDelete(id: string) {
         try {
             await deleteChat(id);
             setChats(prevChats => {
                 return prevChats.filter((chat) => chat.id !== id)
             });
-        } catch(err) {
+        } catch (err) {
             if (err instanceof Error) {
                 setError(err.message);
             } else {
@@ -50,6 +58,7 @@ export default function UserDashboard(): React.JSX.Element {
         };
     };
 
+    // Page loading state
     if (status === 'loading' || loading) {
         return (
             <div>
@@ -63,6 +72,7 @@ export default function UserDashboard(): React.JSX.Element {
         );
     };
 
+    // Page error state
     if (error) {
         return (
             <div>
@@ -70,13 +80,15 @@ export default function UserDashboard(): React.JSX.Element {
                     <section className="flex flex-col items-center gap-[2em] w-full p-[2em]">
                         <h1 className="text-[2em] font-bold">Error</h1>
                         <p className="text-[1.5em]">{error}</p>
-                        <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110" onClick={() => setError(null)}>Back to Login</button>
+                        <button className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110" 
+                        onClick={() => setError(null)}>Back to Login</button>
                     </section>
                 </main>
             </div>
         );
     };
 
+    // Admin page state
     if (session?.user.role === 'ADMIN') {
         return (
             <div>
@@ -89,7 +101,10 @@ export default function UserDashboard(): React.JSX.Element {
                                     <LogoutButton />
                                 </li>
                                 <li>
-                                    <Link href="/chat/new" className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">Create New Topic</Link>
+                                    <Link href="/chat/new" 
+                                        className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">
+                                        Create New Topic
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
@@ -102,9 +117,16 @@ export default function UserDashboard(): React.JSX.Element {
                                             <p className="text-gray-500 italic">{chat.description}</p>
                                         </div>
                                         <div className="flex gap-[1em]">
-                                            <Link href={`/chat/${chat.id}`} className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">View Messages</Link>
-                                            <Link href={`/chat/edit/${chat.id}`} className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">Edit</Link>
-                                            <button className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110" onClick={() => handleDelete(chat.id)}>Delete</button>
+                                            <Link href={`/chat/${chat.id}`} 
+                                                className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">
+                                                View Messages
+                                            </Link>
+                                            <Link href={`/chat/edit/${chat.id}`} 
+                                                className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">
+                                                Edit
+                                            </Link>
+                                            <button className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110" 
+                                            onClick={() => handleDelete(chat.id)}>Delete</button>
                                         </div>
                                     </div>
                                 ))}
@@ -118,6 +140,7 @@ export default function UserDashboard(): React.JSX.Element {
         );
     };
 
+    // Regular user page state
     if (session?.user.role === 'USER') {
         return (
             <div>
@@ -133,7 +156,10 @@ export default function UserDashboard(): React.JSX.Element {
                                             <h2 className="text-[1.5em]">{chat.name}</h2>
                                             <p className="text-gray-500 italic">{chat.description}</p>
                                         </div>
-                                        <Link href={`/chat/${chat.id}`} className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">View Messages</Link>
+                                        <Link href={`/chat/${chat.id}`} 
+                                            className="flex border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">
+                                            View Messages
+                                        </Link>
                                     </div>
                                 ))}
                             </aside>
@@ -146,14 +172,18 @@ export default function UserDashboard(): React.JSX.Element {
         );
     };
 
+    // Catch state for unauthorized access
     return (
         <div>
             <main className="w-full">
                 <section className="flex flex-col items-center gap-[2em] w-full p-[2em]">
                     <h1>Unauthorized Access to Page</h1>
-                    <Link href='/' className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">Back to Homepage</Link>
+                    <Link href='/' 
+                        className="border border-black rounded-2xl px-[1em] py-[0.5em] transition-all duration-200 ease-in-out hover:bg-black hover:text-white hover:translate-y-0.5 hover:scale-110">
+                        Back to Homepage
+                    </Link>
                 </section>
             </main>
         </div>
-    )
+    );
 };
