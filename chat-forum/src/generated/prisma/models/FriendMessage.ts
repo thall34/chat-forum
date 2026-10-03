@@ -27,6 +27,8 @@ export type AggregateFriendMessage = {
 export type FriendMessageMinAggregateOutputType = {
   id: string | null
   text: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
   senderId: string | null
   receiverId: string | null
 }
@@ -34,6 +36,8 @@ export type FriendMessageMinAggregateOutputType = {
 export type FriendMessageMaxAggregateOutputType = {
   id: string | null
   text: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
   senderId: string | null
   receiverId: string | null
 }
@@ -41,6 +45,8 @@ export type FriendMessageMaxAggregateOutputType = {
 export type FriendMessageCountAggregateOutputType = {
   id: number
   text: number
+  createdAt: number
+  updatedAt: number
   senderId: number
   receiverId: number
   _all: number
@@ -50,6 +56,8 @@ export type FriendMessageCountAggregateOutputType = {
 export type FriendMessageMinAggregateInputType = {
   id?: true
   text?: true
+  createdAt?: true
+  updatedAt?: true
   senderId?: true
   receiverId?: true
 }
@@ -57,6 +65,8 @@ export type FriendMessageMinAggregateInputType = {
 export type FriendMessageMaxAggregateInputType = {
   id?: true
   text?: true
+  createdAt?: true
+  updatedAt?: true
   senderId?: true
   receiverId?: true
 }
@@ -64,6 +74,8 @@ export type FriendMessageMaxAggregateInputType = {
 export type FriendMessageCountAggregateInputType = {
   id?: true
   text?: true
+  createdAt?: true
+  updatedAt?: true
   senderId?: true
   receiverId?: true
   _all?: true
@@ -144,6 +156,8 @@ export type FriendMessageGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 export type FriendMessageGroupByOutputType = {
   id: string
   text: string
+  createdAt: Date
+  updatedAt: Date
   senderId: string
   receiverId: string
   _count: FriendMessageCountAggregateOutputType | null
@@ -172,6 +186,8 @@ export type FriendMessageWhereInput = {
   NOT?: Prisma.FriendMessageWhereInput | Prisma.FriendMessageWhereInput[]
   id?: Prisma.StringFilter<"FriendMessage"> | string
   text?: Prisma.StringFilter<"FriendMessage"> | string
+  createdAt?: Prisma.DateTimeFilter<"FriendMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FriendMessage"> | Date | string
   senderId?: Prisma.StringFilter<"FriendMessage"> | string
   receiverId?: Prisma.StringFilter<"FriendMessage"> | string
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -181,6 +197,8 @@ export type FriendMessageWhereInput = {
 export type FriendMessageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
   sender?: Prisma.UserOrderByWithRelationInput
@@ -193,6 +211,8 @@ export type FriendMessageWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.FriendMessageWhereInput[]
   NOT?: Prisma.FriendMessageWhereInput | Prisma.FriendMessageWhereInput[]
   text?: Prisma.StringFilter<"FriendMessage"> | string
+  createdAt?: Prisma.DateTimeFilter<"FriendMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FriendMessage"> | Date | string
   senderId?: Prisma.StringFilter<"FriendMessage"> | string
   receiverId?: Prisma.StringFilter<"FriendMessage"> | string
   sender?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -202,6 +222,8 @@ export type FriendMessageWhereUniqueInput = Prisma.AtLeast<{
 export type FriendMessageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
   _count?: Prisma.FriendMessageCountOrderByAggregateInput
@@ -215,6 +237,8 @@ export type FriendMessageScalarWhereWithAggregatesInput = {
   NOT?: Prisma.FriendMessageScalarWhereWithAggregatesInput | Prisma.FriendMessageScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"FriendMessage"> | string
   text?: Prisma.StringWithAggregatesFilter<"FriendMessage"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"FriendMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"FriendMessage"> | Date | string
   senderId?: Prisma.StringWithAggregatesFilter<"FriendMessage"> | string
   receiverId?: Prisma.StringWithAggregatesFilter<"FriendMessage"> | string
 }
@@ -222,6 +246,8 @@ export type FriendMessageScalarWhereWithAggregatesInput = {
 export type FriendMessageCreateInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sender: Prisma.UserCreateNestedOneWithoutSentFriendMessagesInput
   receiver: Prisma.UserCreateNestedOneWithoutReceivedFriendMessagesInput
 }
@@ -229,6 +255,8 @@ export type FriendMessageCreateInput = {
 export type FriendMessageUncheckedCreateInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   senderId: string
   receiverId: string
 }
@@ -236,6 +264,8 @@ export type FriendMessageUncheckedCreateInput = {
 export type FriendMessageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sender?: Prisma.UserUpdateOneRequiredWithoutSentFriendMessagesNestedInput
   receiver?: Prisma.UserUpdateOneRequiredWithoutReceivedFriendMessagesNestedInput
 }
@@ -243,6 +273,8 @@ export type FriendMessageUpdateInput = {
 export type FriendMessageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   receiverId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -250,6 +282,8 @@ export type FriendMessageUncheckedUpdateInput = {
 export type FriendMessageCreateManyInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   senderId: string
   receiverId: string
 }
@@ -257,11 +291,15 @@ export type FriendMessageCreateManyInput = {
 export type FriendMessageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type FriendMessageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
   receiverId?: Prisma.StringFieldUpdateOperationsInput | string
 }
@@ -279,6 +317,8 @@ export type FriendMessageOrderByRelationAggregateInput = {
 export type FriendMessageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
 }
@@ -286,6 +326,8 @@ export type FriendMessageCountOrderByAggregateInput = {
 export type FriendMessageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
 }
@@ -293,6 +335,8 @@ export type FriendMessageMaxOrderByAggregateInput = {
 export type FriendMessageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   text?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   senderId?: Prisma.SortOrder
   receiverId?: Prisma.SortOrder
 }
@@ -384,12 +428,16 @@ export type FriendMessageUncheckedUpdateManyWithoutSenderNestedInput = {
 export type FriendMessageCreateWithoutReceiverInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   sender: Prisma.UserCreateNestedOneWithoutSentFriendMessagesInput
 }
 
 export type FriendMessageUncheckedCreateWithoutReceiverInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   senderId: string
 }
 
@@ -406,12 +454,16 @@ export type FriendMessageCreateManyReceiverInputEnvelope = {
 export type FriendMessageCreateWithoutSenderInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   receiver: Prisma.UserCreateNestedOneWithoutReceivedFriendMessagesInput
 }
 
 export type FriendMessageUncheckedCreateWithoutSenderInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   receiverId: string
 }
 
@@ -447,6 +499,8 @@ export type FriendMessageScalarWhereInput = {
   NOT?: Prisma.FriendMessageScalarWhereInput | Prisma.FriendMessageScalarWhereInput[]
   id?: Prisma.StringFilter<"FriendMessage"> | string
   text?: Prisma.StringFilter<"FriendMessage"> | string
+  createdAt?: Prisma.DateTimeFilter<"FriendMessage"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"FriendMessage"> | Date | string
   senderId?: Prisma.StringFilter<"FriendMessage"> | string
   receiverId?: Prisma.StringFilter<"FriendMessage"> | string
 }
@@ -470,48 +524,64 @@ export type FriendMessageUpdateManyWithWhereWithoutSenderInput = {
 export type FriendMessageCreateManyReceiverInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   senderId: string
 }
 
 export type FriendMessageCreateManySenderInput = {
   id?: string
   text: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   receiverId: string
 }
 
 export type FriendMessageUpdateWithoutReceiverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   sender?: Prisma.UserUpdateOneRequiredWithoutSentFriendMessagesNestedInput
 }
 
 export type FriendMessageUncheckedUpdateWithoutReceiverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FriendMessageUncheckedUpdateManyWithoutReceiverInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   senderId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FriendMessageUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receiver?: Prisma.UserUpdateOneRequiredWithoutReceivedFriendMessagesNestedInput
 }
 
 export type FriendMessageUncheckedUpdateWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receiverId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type FriendMessageUncheckedUpdateManyWithoutSenderInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   text?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receiverId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -520,6 +590,8 @@ export type FriendMessageUncheckedUpdateManyWithoutSenderInput = {
 export type FriendMessageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   text?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   senderId?: boolean
   receiverId?: boolean
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -529,6 +601,8 @@ export type FriendMessageSelect<ExtArgs extends runtime.Types.Extensions.Interna
 export type FriendMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   text?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   senderId?: boolean
   receiverId?: boolean
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -538,6 +612,8 @@ export type FriendMessageSelectCreateManyAndReturn<ExtArgs extends runtime.Types
 export type FriendMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   text?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   senderId?: boolean
   receiverId?: boolean
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -547,11 +623,13 @@ export type FriendMessageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type FriendMessageSelectScalar = {
   id?: boolean
   text?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   senderId?: boolean
   receiverId?: boolean
 }
 
-export type FriendMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "text" | "senderId" | "receiverId", ExtArgs["result"]["friendMessage"]>
+export type FriendMessageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "text" | "createdAt" | "updatedAt" | "senderId" | "receiverId", ExtArgs["result"]["friendMessage"]>
 export type FriendMessageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sender?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   receiver?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -574,6 +652,8 @@ export type $FriendMessagePayload<ExtArgs extends runtime.Types.Extensions.Inter
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     text: string
+    createdAt: Date
+    updatedAt: Date
     senderId: string
     receiverId: string
   }, ExtArgs["result"]["friendMessage"]>
@@ -1003,6 +1083,8 @@ export interface Prisma__FriendMessageClient<T, Null = never, ExtArgs extends ru
 export interface FriendMessageFieldRefs {
   readonly id: Prisma.FieldRef<"FriendMessage", 'String'>
   readonly text: Prisma.FieldRef<"FriendMessage", 'String'>
+  readonly createdAt: Prisma.FieldRef<"FriendMessage", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"FriendMessage", 'DateTime'>
   readonly senderId: Prisma.FieldRef<"FriendMessage", 'String'>
   readonly receiverId: Prisma.FieldRef<"FriendMessage", 'String'>
 }

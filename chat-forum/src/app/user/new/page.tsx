@@ -21,11 +21,11 @@ export default function RegisterUser(): React.JSX.Element {
       const formData = new FormData(e.currentTarget);
       const email = formData.get('email') as string;
       const password = formData.get('password') as string;
-      const username = formData.get('username') as string;
+      const name = formData.get('name') as string;
       const birthdate = formData.get('birthdate') as string;
       const dateFormat = new Date(birthdate);
       // Creates user using details from form data
-      await createUser(email, password, username, dateFormat);
+      await createUser(email, password, name, dateFormat);
       // If successful, redirects back to the homepage
       router.push('/');
       router.refresh();
@@ -69,8 +69,8 @@ export default function RegisterUser(): React.JSX.Element {
             <label htmlFor="password">Password: <span className='text-red-500'>*</span></label>
             <input type="password" name="password" id="password" required 
             className="border border-gray-400 p-[0.3em] rounded outline-none transition-all duration-200 ease-in-out hover:border-gray-600 focus:border-gray-800 focus:shadow-md" />
-            <label htmlFor="username">Username: </label>
-            <input type="text" name="username" id="username" 
+            <label htmlFor="name">Name: </label>
+            <input type="text" name="name" id="name" 
             className="border border-gray-400 p-[0.3em] rounded outline-none transition-all duration-200 ease-in-out hover:border-gray-600 focus:border-gray-800 focus:shadow-md" />
             <label htmlFor="birthdate">Date of Birth: </label>
             <input type="date" name="birthdate" id="birthdate" 

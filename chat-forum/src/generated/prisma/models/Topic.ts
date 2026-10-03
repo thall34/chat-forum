@@ -28,18 +28,24 @@ export type TopicMinAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TopicMaxAggregateOutputType = {
   id: string | null
   name: string | null
   description: string | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type TopicCountAggregateOutputType = {
   id: number
   name: number
   description: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -48,18 +54,24 @@ export type TopicMinAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type TopicMaxAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type TopicCountAggregateInputType = {
   id?: true
   name?: true
   description?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -139,6 +151,8 @@ export type TopicGroupByOutputType = {
   id: string
   name: string
   description: string
+  createdAt: Date
+  updatedAt: Date
   _count: TopicCountAggregateOutputType | null
   _min: TopicMinAggregateOutputType | null
   _max: TopicMaxAggregateOutputType | null
@@ -166,6 +180,8 @@ export type TopicWhereInput = {
   id?: Prisma.StringFilter<"Topic"> | string
   name?: Prisma.StringFilter<"Topic"> | string
   description?: Prisma.StringFilter<"Topic"> | string
+  createdAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   chatMessages?: Prisma.ChatMessageListRelationFilter
 }
 
@@ -173,6 +189,8 @@ export type TopicOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   chatMessages?: Prisma.ChatMessageOrderByRelationAggregateInput
 }
 
@@ -183,6 +201,8 @@ export type TopicWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.TopicWhereInput | Prisma.TopicWhereInput[]
   name?: Prisma.StringFilter<"Topic"> | string
   description?: Prisma.StringFilter<"Topic"> | string
+  createdAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Topic"> | Date | string
   chatMessages?: Prisma.ChatMessageListRelationFilter
 }, "id">
 
@@ -190,6 +210,8 @@ export type TopicOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.TopicCountOrderByAggregateInput
   _max?: Prisma.TopicMaxOrderByAggregateInput
   _min?: Prisma.TopicMinOrderByAggregateInput
@@ -202,12 +224,16 @@ export type TopicScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Topic"> | string
   name?: Prisma.StringWithAggregatesFilter<"Topic"> | string
   description?: Prisma.StringWithAggregatesFilter<"Topic"> | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"Topic"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Topic"> | Date | string
 }
 
 export type TopicCreateInput = {
   id?: string
   name: string
   description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   chatMessages?: Prisma.ChatMessageCreateNestedManyWithoutTopicInput
 }
 
@@ -215,6 +241,8 @@ export type TopicUncheckedCreateInput = {
   id?: string
   name: string
   description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
   chatMessages?: Prisma.ChatMessageUncheckedCreateNestedManyWithoutTopicInput
 }
 
@@ -222,6 +250,8 @@ export type TopicUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatMessages?: Prisma.ChatMessageUpdateManyWithoutTopicNestedInput
 }
 
@@ -229,6 +259,8 @@ export type TopicUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chatMessages?: Prisma.ChatMessageUncheckedUpdateManyWithoutTopicNestedInput
 }
 
@@ -236,36 +268,48 @@ export type TopicCreateManyInput = {
   id?: string
   name: string
   description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TopicUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TopicUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TopicCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TopicMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TopicMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type TopicScalarRelationFilter = {
@@ -291,12 +335,16 @@ export type TopicCreateWithoutChatMessagesInput = {
   id?: string
   name: string
   description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TopicUncheckedCreateWithoutChatMessagesInput = {
   id?: string
   name: string
   description: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type TopicCreateOrConnectWithoutChatMessagesInput = {
@@ -319,12 +367,16 @@ export type TopicUpdateWithoutChatMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type TopicUncheckedUpdateWithoutChatMessagesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -362,6 +414,8 @@ export type TopicSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   name?: boolean
   description?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
   chatMessages?: boolean | Prisma.Topic$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.TopicCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["topic"]>
@@ -370,21 +424,27 @@ export type TopicSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   name?: boolean
   description?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["topic"]>
 
 export type TopicSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   description?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["topic"]>
 
 export type TopicSelectScalar = {
   id?: boolean
   name?: boolean
   description?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type TopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description", ExtArgs["result"]["topic"]>
+export type TopicOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["topic"]>
 export type TopicInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chatMessages?: boolean | Prisma.Topic$chatMessagesArgs<ExtArgs>
   _count?: boolean | Prisma.TopicCountOutputTypeDefaultArgs<ExtArgs>
@@ -401,6 +461,8 @@ export type $TopicPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     name: string
     description: string
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["topic"]>
   composites: {}
 }
@@ -828,6 +890,8 @@ export interface TopicFieldRefs {
   readonly id: Prisma.FieldRef<"Topic", 'String'>
   readonly name: Prisma.FieldRef<"Topic", 'String'>
   readonly description: Prisma.FieldRef<"Topic", 'String'>
+  readonly createdAt: Prisma.FieldRef<"Topic", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Topic", 'DateTime'>
 }
     
 

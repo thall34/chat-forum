@@ -4,7 +4,7 @@ import { getAllChats, getSingleChat } from "./queries";
 import { createChatRow, editChatRow, deleteChatRow } from "./mutations";
 import { requireUser, requireAdmin } from "@/lib/authorization";
 import errorHandler from "../utils/errorHandler";
-import { Chat } from "@/types/types";
+import { Chat, ChatWithMessages } from "@/types/types";
 
 export async function getChats(): Promise<Chat[]> {
     try {
@@ -16,7 +16,7 @@ export async function getChats(): Promise<Chat[]> {
     };
 };
 
-export async function getChat(id: string): Promise<Chat> {
+export async function getChat(id: string): Promise<ChatWithMessages> {
     try {
         await requireUser();
         const chat = await getSingleChat(id);

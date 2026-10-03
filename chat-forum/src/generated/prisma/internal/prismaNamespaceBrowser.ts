@@ -80,7 +80,6 @@ export const UserScalarFieldEnum = {
   email: 'email',
   emailVerified: 'emailVerified',
   image: 'image',
-  username: 'username',
   passwordHash: 'passwordHash',
   birthdate: 'birthdate',
   role: 'role',
@@ -112,7 +111,9 @@ export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeo
 export const TopicScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  description: 'description'
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type TopicScalarFieldEnum = (typeof TopicScalarFieldEnum)[keyof typeof TopicScalarFieldEnum]
@@ -121,6 +122,8 @@ export type TopicScalarFieldEnum = (typeof TopicScalarFieldEnum)[keyof typeof To
 export const ChatMessageScalarFieldEnum = {
   id: 'id',
   text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   topicId: 'topicId',
   userId: 'userId'
 } as const
@@ -131,6 +134,8 @@ export type ChatMessageScalarFieldEnum = (typeof ChatMessageScalarFieldEnum)[key
 export const FriendMessageScalarFieldEnum = {
   id: 'id',
   text: 'text',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   senderId: 'senderId',
   receiverId: 'receiverId'
 } as const
